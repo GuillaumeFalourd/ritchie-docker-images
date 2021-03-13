@@ -4,6 +4,8 @@ FROM alpine:3.12
 RUN apk add --no-cache curl bash sudo
 RUN curl -fsSL https://commons-repo.ritchiecli.io/install.sh | bash
 RUN echo '{"addCommons":false, "sendMetrics":true, "runType":"local"}' | rit init --stdin
+RUN rit set formula-runner --runner="local"
+
 
 # Install Go 1.15.8
 ENV PATH /usr/local/go/bin:$PATH
@@ -63,6 +65,3 @@ ENV GOPATH /go
 ENV PATH $GOPATH/bin:$PATH
 RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
 WORKDIR $GOPATH
-
-# Check Ritchie version
-RUN rit -v

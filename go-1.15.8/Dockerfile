@@ -1,14 +1,13 @@
 FROM alpine:3.12
 
+# Install & Initialize Ritchie CLI
 RUN apk add --no-cache curl bash sudo
-
 RUN curl -fsSL https://commons-repo.ritchiecli.io/install.sh | bash
 RUN echo '{"addCommons":false, "sendMetrics":true, "runType":"local"}' | rit init --stdin
 
+# Install Go 1.15.8
 ENV PATH /usr/local/go/bin:$PATH
-
 ENV GOLANG_VERSION 1.15.8
-
 RUN set -eux; \
 	apk add --no-cache \
 		bash \
@@ -64,4 +63,3 @@ ENV GOPATH /go
 ENV PATH $GOPATH/bin:$PATH
 RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
 WORKDIR $GOPATH
-

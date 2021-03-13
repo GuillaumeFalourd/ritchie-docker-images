@@ -1,12 +1,10 @@
 FROM alpine:3.12
 
 RUN apk add --no-cache curl bash sudo
-
 RUN curl -fsSL https://commons-repo.ritchiecli.io/install.sh | bash
 RUN echo '{"addCommons":false, "sendMetrics":true, "runType":"local"}' | rit init --stdin
 
 ENV PATH /usr/local/go/bin:$PATH
-
 ENV GOLANG_VERSION 1.15.8
 
 RUN set -eux; \
